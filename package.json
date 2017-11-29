@@ -1,0 +1,20 @@
+{
+  "name": "stream-audio-fingerprint",
+  "version": "1.0.0",
+  "description": "Audio landmark fingerprinting as a Node Stream module",
+  "main": "codegen_demo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "audio",
+    "fingerprint",
+    "stream"
+  ],
+  "author": "Alexandre Storelli <a_npm@storelli.fr>",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "dsp.js": "git+https://git@github.com/corbanbrook/dsp.js.git",
+    "node-png": "^0.4.3"
+  }
+}
