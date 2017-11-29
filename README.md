@@ -7,6 +7,8 @@ This module is a duplex stream (instance of stream.Transform) that converts a PC
 The [acoustic fingerprinting](https://en.wikipedia.org/wiki/Acoustic_fingerprint) technique used here is the landmark algorithm, as described in the [Shazam 2003 paper](http://www.ee.columbia.edu/~dpwe/papers/Wang03-shazam.pdf).
 The implementation in ```codegen_landmark.js``` has been inspired by the MATLAB routine of D. Ellis ["Robust Landmark-Based Audio Fingerprinting" (2009)](http://labrosa.ee.columbia.edu/matlab/fingerprint/). One significant difference with Ellis' implementation is that this module can handle unlimited audio streams, e.g. radio, and not only finished audio tracks.
 
+Note the existence of another good landmark fingerprinter in Python, [dejavu](https://github.com/worldveil/dejavu).
+
 ## Description
 
 In a nutshell, 
@@ -55,10 +57,11 @@ fingerprinter.on("data", function(data) {
 });
 ```
 
-and then we pipe audio data
+and then we pipe audio data, either a stream or a file
 
 ```sh
 curl http://radiofg.impek.com/fg | nodejs codegen_demo.js
+cat awesome_music.mp3 | nodejs codegen_demo.js
 ```
 
 ## License
