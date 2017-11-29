@@ -204,9 +204,9 @@ class Codegen extends Transform {
 				this.thrData.push(tmp);
 			}
 
-			/*if (iLocMax.length > 0 && VERBOSE) {
+			if (false && VERBOSE && iLocMax.length > 0) {
 				log("t=" + Math.round(this.stepIndex/STEP) + " f=" + iLocMax + " peak=" + vLocMax);
-			}*/
+			}
 
 			// array that stores local maxima for each time step
 			this.marks.push({"t": Math.round(this.stepIndex/STEP), "i":iLocMax, "v":vLocMax});
@@ -219,9 +219,7 @@ class Codegen extends Transform {
 				for (var j=0; j<this.marks[i].v.length; j++) {
 					//console.log("pruning " + this.marks[i].v[j] + " <? " + this.threshold[this.marks[i].i[j]] + " * " + Math.pow(this.mask_decay, lenMarks-1-i));
 					if (this.marks[i].i[j] != 0 && Math.log(this.marks[i].v[j]) < this.threshold[this.marks[i].i[j]] + MASK_DECAY_LOG * (nm-1-i)) {
-						/*if (VERBOSE) {
-							log("t=" + Math.round(this.stepIndex/STEP) + " pruning " + i + " t=" + this.marks[i].t + " locmax=" + j);
-						}*/
+						if (false && VERBOSE) log("t=" + Math.round(this.stepIndex/STEP) + " pruning " + i + " t=" + this.marks[i].t + " locmax=" + j);
 						this.marks[i].v[j] = Number.NEGATIVE_INFINITY;
 						this.marks[i].i[j] = Number.NEGATIVE_INFINITY;
 					}
@@ -311,12 +309,12 @@ class Codegen extends Transform {
 
 			for (var x = 0; x < img.width; x++) {
 				for (var y = 0; y < img.height; y++) {
-	                colormap(0, img.data, (img.width * y + x) << 2, null);
-	            }
-	            var yPoint = Math.round(((buf[x]-norm[0]) / (norm[1]-norm[0])) * 64);
+					colormap(0, img.data, (img.width * y + x) << 2, null);
+				}
+				var yPoint = Math.round(((buf[x]-norm[0]) / (norm[1]-norm[0])) * 64);
 				colormap(1, img.data, (img.width * yPoint + x) << 2, null);
-	        }
-	        img.pack().pipe(fs.createWriteStream('out-raw.png'));
+			}
+			img.pack().pipe(fs.createWriteStream('out-raw.png'));
 		}
 
 		// fft plot
@@ -329,21 +327,21 @@ class Codegen extends Transform {
 		}
 		for (var x = 0; x < img.width; x++) {
 			for (var y = 0; y < img.height; y++) {
-                colormap(Math.abs((this.fftData[x][y]-norm[0]) / (norm[1]-norm[0])), img.data, ((img.width * (img.height-1-y) + x) << 2),'r');
-            }
-        }
-        for (var i = 0; i < this.peakData.length; i++) {
+				colormap(Math.abs((this.fftData[x][y]-norm[0]) / (norm[1]-norm[0])), img.data, ((img.width * (img.height-1-y) + x) << 2),'r');
+			}
+		}
+		for (var i = 0; i < this.peakData.length; i++) {
 			drawLine(img,this.peakData[i][0],this.peakData[i][1],this.peakData[i][2],this.peakData[i][3]);
 		}
 
 		for (var x = 0; x < img.width; x++) {
-            for (var i = 0; i < this.marks[x].i.length; i++) {
-            	if (this.marks[x].i[i] > Number.NEGATIVE_INFINITY) {
-	            	drawMarker(img, x, this.marks[x].i[i], 2);
-	            }
-            }
+			for (var i = 0; i < this.marks[x].i.length; i++) {
+				if (this.marks[x].i[i] > Number.NEGATIVE_INFINITY) {
+					drawMarker(img, x, this.marks[x].i[i], 2);
+				}
+			}
 		}
-        img.pack().pipe(fs.createWriteStream('out-fft.png'));
+		img.pack().pipe(fs.createWriteStream('out-fft.png'));
 
 
 		// threshold plot
@@ -355,16 +353,16 @@ class Codegen extends Transform {
 		}
 		for (var x = 0; x < img.width; x++) {
 			for (var y = 0; y < img.height; y++) {
-                colormap(Math.abs((this.thrData[x][y]-norm[0]) / (norm[1]-norm[0])), img.data, ((img.width * (img.height-1-y) + x) << 2),'r');
-            }
+				colormap(Math.abs((this.thrData[x][y]-norm[0]) / (norm[1]-norm[0])), img.data, ((img.width * (img.height-1-y) + x) << 2),'r');
+			}
 
-            for (var i = 0; i < this.marks[x].i.length; i++) {
-            	if (this.marks[x].i[i] > Number.NEGATIVE_INFINITY) {
-	            	drawMarker(img, x, this.marks[x].i[i], 2);
-	            }
-            }
-        }
-        img.pack().pipe(fs.createWriteStream('out-thr.png'));
+			for (var i = 0; i < this.marks[x].i.length; i++) {
+				if (this.marks[x].i[i] > Number.NEGATIVE_INFINITY) {
+					drawMarker(img, x, this.marks[x].i[i], 2);
+				}
+			}
+		}
+		img.pack().pipe(fs.createWriteStream('out-thr.png'));
 	}
 }
 
