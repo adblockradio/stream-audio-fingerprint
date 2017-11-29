@@ -11,7 +11,7 @@ Note the existence of another good landmark fingerprinter in Python, [dejavu](ht
 
 ## Description
 
-In a nutshell, 
+In a nutshell,
 - a spectrogram is computed from the audio signal
 - significant peaks are chosen in this time-frequency map. a latency of 500ms is used to determine if a peak is not followed by a bigger peak.
 - fingerprints are computed by linking peaks with ```dt```, ```f1``` and ```f2```, ready to be inserted in a database or to be compared with other fingerprints.
@@ -27,7 +27,7 @@ Given the same audio, this figure shows the same peaks and the internal *forward
 ## Usage
 
 ```sh
-npm install
+npm install stream-audio-fingerprint
 ```
 
 The algorithm is in ```codegen_landmark.js```.
@@ -46,7 +46,7 @@ var decoder = require('child_process').spawn('ffmpeg', [
 ], { stdio: ['pipe', 'pipe', process.stderr] });
 process.stdin.pipe(decoder.stdin);
 
-var Codegen = require("./codegen_landmark.js");
+var Codegen = require("stream-audio-fingerprint");
 var fingerprinter = new Codegen();
 decoder.stdout.pipe(fingerprinter);
 
