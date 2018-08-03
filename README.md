@@ -18,7 +18,7 @@ In a nutshell,
 
 ![Spectrogram, peaks and pairs](out-fft.png)
 
-In the background, about 12s of musical content is represented as a spectrogram (top frequency is about 5kHz). The blue marks are the chosen spectrogram peaks. Grey lines are peaks pairs that each lead to a fingerprint.
+In the background, about 12s of musical content is represented as a spectrogram (top frequency is about 10kHz). The blue marks are the chosen spectrogram peaks. Grey lines are peaks pairs that each lead to a fingerprint.
 
 ![Threshold and peaks](out-thr.png)
 
@@ -38,7 +38,7 @@ A demo usage is proposed in ```codegen_demo.js```.
 var decoder = require('child_process').spawn('ffmpeg', [
 	'-i', 'pipe:0',
 	'-acodec', 'pcm_s16le',
-	'-ar', 11025,
+	'-ar', 22050,
 	'-ac', 1,
 	'-f', 'wav',
 	'-v', 'fatal',

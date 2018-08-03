@@ -2,10 +2,10 @@
 // This file is licensed under the Affero General Public License version 3 or later.
 // See the LICENSE file.
 
-var decoder = require('child_process').spawn('ffmpeg', [
+const decoder = require('child_process').spawn('ffmpeg', [
 	'-i', 'pipe:0',
 	'-acodec', 'pcm_s16le',
-	'-ar', 11025,
+	'-ar', 22050,
 	'-ac', 1,
 	'-f', 'wav',
 	'-v', 'fatal',
@@ -13,12 +13,12 @@ var decoder = require('child_process').spawn('ffmpeg', [
 ], { stdio: ['pipe', 'pipe', process.stderr] });
 process.stdin.pipe(decoder.stdin); //.write(data);
 
-var Codegen = require("./codegen_landmark.js");
-var fingerprinter = new Codegen();
+const Codegen = require("./codegen_landmark.js");
+const fingerprinter = new Codegen();
 decoder.stdout.pipe(fingerprinter);
 
 fingerprinter.on("data", function(data) {
-	for (var i=0; i<data.tcodes.length; i++) {
+	for (let i=0; i<data.tcodes.length; i++) {
 		console.log("time=" + data.tcodes[i] + " fingerprint=" + data.hcodes[i]);
 	}
 });
