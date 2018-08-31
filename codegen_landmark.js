@@ -1,6 +1,8 @@
-// Copyright (c) 2017 Alexandre Storelli
-// This file is licensed under the Affero General Public License version 3 or later.
-// See the LICENSE file.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+// Copyright (c) 2018 Alexandre Storelli
 
 // Online implementation of the landmark audio fingerprinting algorithm.
 // inspired by D. Ellis (2009), "Robust Landmark-Based Audio Fingerprinting"
