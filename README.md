@@ -13,7 +13,7 @@ Note the existence of another good landmark fingerprinter in Python, [dejavu](ht
 
 In a nutshell,
 - a spectrogram is computed from the audio signal
-- significant peaks are chosen in this time-frequency map. a latency of 500ms is used to determine if a peak is not followed by a bigger peak.
+- significant peaks are chosen in this time-frequency map. a latency of 250ms is used to determine if a peak is not followed by a bigger peak.
 - fingerprints are computed by linking peaks with ```dt```, ```f1``` and ```f2```, ready to be inserted in a database or to be compared with other fingerprints.
 
 ![Spectrogram, peaks and pairs](out-fft.png)
