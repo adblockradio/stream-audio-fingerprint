@@ -45,6 +45,7 @@ const STEP = NFFT/2; // 50 % overlap
 // if SAMPLING_RATE is 22050 Hz, this leads to a sampling frequency
 // fs = (SAMPLING_RATE / STEP) /s = 86/s, or dt = 1/fs = 11,61 ms.
 // It's not really useful to change the overlap ratio.
+const DT = 1 / (SAMPLING_RATE / STEP);
 
 const FFT = new dsp.FFT(NFFT, SAMPLING_RATE);
 
@@ -110,6 +111,11 @@ class Codegen extends Transform {
 			this.thrData = [];
 			this.peakData = [];
 		}
+
+		// copy constants to be able to reference them in parent modules
+		this.DT = DT;
+		this.SAMPLING_RATE = SAMPLING_RATE;
+		this.BPS = BPS;
 	}
 
 	_write(chunk, enc, next) {
