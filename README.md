@@ -32,7 +32,7 @@ npm install stream-audio-fingerprint
 
 The algorithm is in ```codegen_landmark.js```.
 
-A demo usage, using [ffmpeg](https://ffmpeg.org/download.html), is proposed in ```codegen_demo.js```.
+A demo usage is proposed in ```codegen_demo.js```. It requires the executable [ffmpeg](https://ffmpeg.org/download.html) to run.
 
 ```javascript
 var decoder = require('child_process').spawn('ffmpeg', [
