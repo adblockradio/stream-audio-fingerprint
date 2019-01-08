@@ -66,6 +66,12 @@ curl http://radiofg.impek.com/fg | nodejs codegen_demo.js
 cat awesome_music.mp3 | nodejs codegen_demo.js
 ```
 
+## Integration in your project
+
+Matching fingerprints in a database is not a trivial topic, I should write a technical note about it some day.
+
+For a reference implementation you can have a look at the code of the Adblock Radio algorithm to catch ads https://github.com/adblockradio/adblockradio/blob/master/predictor-db/hotlist.js#L150.
+
 ## License
 
 See LICENSE file.
