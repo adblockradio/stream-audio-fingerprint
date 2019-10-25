@@ -82,7 +82,7 @@ for (let i=0; i<NFFT/2; i++) {
 }
 
 const VERBOSE = false;
-const DO_PLOT = false; // limit the amount of audio processing to ~12s, generate plots and stop the routine.
+let DO_PLOT = true; // limit the amount of audio processing to ~12s, generate plots and stop the routine.
 
 if (DO_PLOT) {
 	var fs = require('fs');

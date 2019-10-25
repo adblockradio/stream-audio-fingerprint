@@ -63,7 +63,7 @@ and then we pipe audio data, either a stream or a file
 
 ```sh
 curl http://radiofg.impek.com/fg | nodejs codegen_demo.js
-cat awesome_music.mp3 | nodejs codegen_demo.js
+cat awesome_music.mp3 | node codegen_demo.js
 ```
 on Windows:
 ```
