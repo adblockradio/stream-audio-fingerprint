@@ -8,7 +8,7 @@ cache: cargo
 #   allow_failures:
 #     - rust: nightly
 #   fast_finish: true
-before_script: cd rs-landmark
+# before_script: cd rs-landmark
 script:
   - cargo build --verbose --all-targets
   - cargo test --verbose --all
