@@ -82,7 +82,7 @@ for (let i=0; i<NFFT/2; i++) {
 }
 
 const VERBOSE = false;
-let DO_PLOT = true; // limit the amount of audio processing to ~12s, generate plots and stop the routine.
+let DO_PLOT = false; // limit the amount of audio processing to ~12s, generate plots and stop the routine.
 
 if (DO_PLOT) {
 	var fs = require('fs');
@@ -92,6 +92,19 @@ if (DO_PLOT) {
 class Codegen extends Transform {
 
 	constructor(options) {
+
+		/**
+		 * BEGIN TEMP
+		 */
+		///*
+		super(options)
+		this.buffer = new Buffer(0);
+		return;
+		//*/
+		/**
+		 * END TEMP
+		 */
+
 		if (!options) options = {};
 		options.readableObjectMode = true;
 		options.highWaterMark = 10;
@@ -307,25 +320,6 @@ class Codegen extends Transform {
 	}
 
 	plot() { // plot section
-
-		if (false) { // raw signal plot
-			let buf = new Array(this.buffer.length / BPS);
-			for (let i=0; i<buf.length; i++) {
-				buf[i] = this.buffer.readInt16LE(i);
-			}
-			var img = new png({width:buf.length,height:64});
-			img.data = new Buffer(img.width * img.height * 4);
-			var norm = minmax(buf, 1);
-
-			for (var x = 0; x < img.width; x++) {
-				for (var y = 0; y < img.height; y++) {
-					colormap(0, img.data, (img.width * y + x) << 2, null);
-				}
-				var yPoint = Math.round(((buf[x]-norm[0]) / (norm[1]-norm[0])) * 64);
-				colormap(1, img.data, (img.width * yPoint + x) << 2, null);
-			}
-			img.pack().pipe(fs.createWriteStream('out-raw.png'));
-		}
 
 		// fft plot
 		console.log("fftData len=" + this.fftData.length);

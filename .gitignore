@@ -59,4 +59,5 @@ typings/
 .env
 
 #mp3_sample
+.idea
 

@@ -3,6 +3,7 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 // Copyright (c) 2018 Alexandre Storelli
+const md5 = require('md5');
 
 const decoder = require('child_process').spawn('ffmpeg', [
 	'-i', 'pipe:0',
@@ -14,6 +15,26 @@ const decoder = require('child_process').spawn('ffmpeg', [
 	'pipe:1'
 ], { stdio: ['pipe', 'pipe', process.stderr] });
 process.stdin.pipe(decoder.stdin); //.write(data);
+
+/**
+ * BEGIN TEMP
+ */
+/*
+process.stdin.on("data", function(data) {
+	console.log(data);
+});
+
+decoder.stdout.on("end", function() {
+	console.log("stream ended");
+});
+*/
+decoder.stdout.on("data", function(data) {
+	// to compare outputs from ffmpeg
+	console.log(md5(data.toString()));
+});
+/**
+ * END TEMP
+ */
 
 const Codegen = require("./codegen_landmark.js");
 const fingerprinter = new Codegen();

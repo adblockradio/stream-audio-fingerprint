@@ -15,6 +15,7 @@
 	"license": "MPL-2.0",
 	"dependencies": {
 		"dsp.js": "git+https://git@github.com/corbanbrook/dsp.js.git",
+		"md5": "^2.2.1",
 		"node-png": "^0.4.3"
 	},
 	"bugs": {

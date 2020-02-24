@@ -1,4 +1,4 @@
 [workspace]
 members = [
-    "rs-landmark"
+    "rs_landmark"
 ]

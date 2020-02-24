@@ -1,5 +1,5 @@
 [package]
-name = "rs-landmark"
+name = "rs_landmark"
 version = "0.1.0"
 authors = ["killzoner"]
 edition = "2018"
@@ -7,3 +7,9 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+futures = "0.3.4"
+md-5 = "0.8.0"
+
+[dependencies.async-std]
+version = "1.5.0"
+features = ["unstable"]
