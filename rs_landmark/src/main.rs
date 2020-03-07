@@ -1,9 +1,13 @@
-//use rs_landmark::stdin::{stdin_stream};
-use async_std::{task};
+use async_std::task;
+use rs_landmark::runner::Runner;
+use rs_landmark::stdin::stdin_result;
 
-async fn run() {
-}
-
+//cat mp3_sample/sample.mp3  | cargo run
 fn main() {
-    task::block_on(run());
+    let runner = Runner::new();
+    runner.write();
+    // task::block_on(async {
+    //     let buffer = stdin_result().await;
+    //     println!("{:?}", buffer);
+    // });
 }

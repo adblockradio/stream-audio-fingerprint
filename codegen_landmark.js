@@ -53,8 +53,10 @@ const HWIN = new Array(NFFT); // prepare the hann window
 for (var i=0; i<NFFT; i++) {
 	HWIN[i] = 0.5 * (1 - Math.cos(2*Math.PI*i/(NFFT-1)));
 }
+//console.log(HWIN.slice(500));
 
 const MASK_DECAY_LOG = Math.log(0.995); // threshold decay factor between frames.
+//console.log(MASK_DECAY_LOG);
 
 // frequency window to generate landmark pairs, in units of DF = SAMPLING_RATE / NFFT. Values between 0 and NFFT/2
 const IF_MIN = 0; // you can increase this to avoid having fingerprints for low frequencies
@@ -80,6 +82,7 @@ for (let i=0; i<NFFT/2; i++) {
 		// see the visualization out-thr.png for better insight of what is happening
 	}
 }
+//console.log(EWW[255][254]);
 
 const VERBOSE = false;
 let DO_PLOT = false; // limit the amount of audio processing to ~12s, generate plots and stop the routine.
@@ -97,9 +100,9 @@ class Codegen extends Transform {
 		 * BEGIN TEMP
 		 */
 		///*
-		super(options)
-		this.buffer = new Buffer(0);
-		return;
+		// super(options)
+		// this.buffer = new Buffer(0);
+		// return;
 		//*/
 		/**
 		 * END TEMP

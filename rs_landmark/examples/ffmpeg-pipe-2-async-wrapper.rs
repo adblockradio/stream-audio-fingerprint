@@ -1,14 +1,14 @@
 use std::error::Error;
 use std::process::{Command, Stdio};
 use async_std::{task};
-//use async_std::sync::channel;
-//use futures::{select, FutureExt, StreamExt, AsyncBufReadExt, AsyncBufRead};
 
-//cat mp3_sample/sample.mp3  | cargo run --release --stream_ffmpeg_decoder
+/**
+ * Same as ffmpeg-pipe-1-sync, but uses async-std runtime
+ * and wraps blocking calls into async calls
+ */
+
+//cat mp3_sample/sample.mp3  | cargo run --example ffmpeg-pipe-2-async-wrapper
 fn main() {
-
-    // bounded channel for now
-    // let (sender, receiver) = channel::<String>(1024);
 
     // spawn the command
     let cmd = "ffmpeg";

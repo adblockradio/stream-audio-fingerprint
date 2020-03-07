@@ -3,7 +3,12 @@ use std::process::{Command, Stdio};
 use std::io::Write;
 use std::io::Read;
 
-//cat ./rs_landmark/src/test-file.txt  | cargo run --release --example sync-stdin_no_stdout_read
+/**
+ * Same as pipe-sync-1, but does not pipe stdout
+ * from spawned process, so it outputs naturally
+ */
+
+//cat ./rs_landmark/src/test-file.txt | cargo run --example wc-pipe-sync-3-no-read-stdout
 fn main() {
     //spawn the command
     let cmd = "wc";

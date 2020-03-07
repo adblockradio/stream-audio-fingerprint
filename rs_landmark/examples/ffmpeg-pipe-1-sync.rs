@@ -1,7 +1,13 @@
 use std::error::Error;
 use std::process::{Command, Stdio};
 
-//cat mp3_sample/sample.mp3  | cargo run --release --example sync-stdin-ffmpeg
+/**
+ * Demonstrates reading from a process's stdout in sync way
+ * (must use ffmpeg ubuntu version apparently to get real input)
+ * It prints ffmpeg binary output as a string
+ */
+
+//cat mp3_sample/sample.mp3  | cargo run --example ffmpeg-pipe-1-sync
 fn main() {
     // spawn the command
     let cmd = "ffmpeg";
