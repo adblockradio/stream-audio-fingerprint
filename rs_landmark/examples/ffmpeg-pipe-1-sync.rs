@@ -42,8 +42,8 @@ fn main() {
     match decoder.stdout.unwrap().read_to_end(&mut s) {
         Err(why) => panic!("couldn't read decoder stdout: {}", why.description()),
         Ok(_) => {
-            let output = String::from_utf8_lossy(&s);
-            print!("decoder responded with:\n{:?}", output);
+            let _output = String::from_utf8_lossy(&s);
+            //print!("decoder responded with:\n{:?}", _output);
         },
     }
 

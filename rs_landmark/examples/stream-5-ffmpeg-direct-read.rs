@@ -12,12 +12,12 @@ use std::process::{Command, Stdio};
 const INPUT_ARG: &str = "file";
 
 /**
- * This is an attempt to read file directly in async way,
- * rather than piping the output of `cat` output.
- * We also try to read output of ffmpeg process by parts in async way
+ * Same as stream-3-ffmpeg-pipe-read,
+ * but we read source mp3 directly
+ * from code with rust APIs
  */
 
-//cargo run --example stream-3-ffmpeg mp3_sample/sample.mp3
+//cargo run --example stream-5-ffmpeg-direct-read mp3_sample/sample.mp3
 fn main() {
     // get filepath from command, sync and mandatory
     let filepath = get_filepath();
@@ -83,8 +83,8 @@ fn main() {
         match stream.read_to_end(&mut buffer) {
             Err(why) => panic!("couldn't read decoder stdout: {}", why.description()),
             Ok(_) => {
-                let output = String::from_utf8_lossy(&buffer);
-                print!("decoder responded with:\n{:?}", output);
+                let _output = String::from_utf8_lossy(&buffer);
+                //print!("decoder responded with:\n{:?}", _output);
             }
         }
     });
