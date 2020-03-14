@@ -47,5 +47,5 @@ fingerprinter.on("data", function(data) {
 });
 
 fingerprinter.on("end", function() {
-	console.log("fingerprints stream ended");
+	// console.log("fingerprints stream ended");
 });

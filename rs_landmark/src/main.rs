@@ -8,7 +8,7 @@ const DEFAULT_BUF_SIZE: usize = 64 * 1024;
 const VERBOSE: bool = false;
 
 fn main() {
-    simple_logger::init_with_level(Level::Debug).unwrap();
+    simple_logger::init_with_level(Level::Info).unwrap();
     // spawn the command
     let cmd = "ffmpeg";
     let decoder = match Command::new(cmd)
@@ -36,7 +36,7 @@ fn main() {
     };
     let decoder_id = decoder.id();
     let decoder_stdout = decoder.stdout.unwrap();
-    println!("Running {} with id {:?}", cmd, decoder_id);
+    debug!("Running {} with id {:?}", cmd, decoder_id);
 
     // use std::thread;
     // let reader = thread::spawn(|| {
@@ -58,11 +58,11 @@ fn main() {
                         debug!("{:x}", &result);
                     }
                     let _prints = runner.write(&buf[..n]);
-                    // if let Some(data) = _prints {
-                    //     for i in 0..data.tcodes.len() {
-                    //         debug!("time={} fingerprint={}", data.tcodes[i], data.hcodes[i]);
-                    //     }
-                    // }
+                    if let Some(data) = _prints {
+                        for i in 0..data.tcodes.len() {
+                            debug!("time={} fingerprint={}", data.tcodes[i], data.hcodes[i]);
+                        }
+                    }
                     if n == 0 {
                         // eof
                         break;
