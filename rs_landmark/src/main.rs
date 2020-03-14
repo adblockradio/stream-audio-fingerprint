@@ -1,11 +1,8 @@
-use async_std::task;
 use log::debug;
 use log::Level;
-use md5::{Digest, Md5};
 use rs_landmark::runner::Runner;
 use std::process::{Command, Stdio};
 const DEFAULT_BUF_SIZE: usize = 64 * 1024;
-const VERBOSE: bool = false;
 
 fn main() {
     simple_logger::init_with_level(Level::Info).unwrap();
@@ -38,9 +35,8 @@ fn main() {
     let decoder_stdout = decoder.stdout.unwrap();
     debug!("Running {} with id {:?}", cmd, decoder_id);
 
-    // use std::thread;
-    // let reader = thread::spawn(|| {
-    let reader = task::spawn_blocking(|| {
+    use std::thread;
+    let reader = thread::spawn(|| {
         let mut stream = decoder_stdout;
         let mut runner = Runner::new();
         let mut buf = [0u8; DEFAULT_BUF_SIZE];
@@ -51,12 +47,6 @@ fn main() {
             match stream.read(&mut buf) {
                 Ok(n) => {
                     //println!("Read {} bytes", n);
-                    if VERBOSE {
-                        let mut hasher = Md5::new();
-                        hasher.input(&buf[..]);
-                        let result = hasher.result();
-                        debug!("{:x}", &result);
-                    }
                     let _prints = runner.write(&buf[..n]);
                     if let Some(data) = _prints {
                         for i in 0..data.tcodes.len() {
@@ -73,8 +63,5 @@ fn main() {
         }
     });
 
-    // reader.join().unwrap();
-    task::block_on(async move {
-        reader.await;
-    })
+    reader.join().unwrap();
 }

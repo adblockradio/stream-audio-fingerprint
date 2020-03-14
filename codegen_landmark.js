@@ -53,10 +53,8 @@ const HWIN = new Array(NFFT); // prepare the hann window
 for (var i=0; i<NFFT; i++) {
 	HWIN[i] = 0.5 * (1 - Math.cos(2*Math.PI*i/(NFFT-1)));
 }
-//console.log(HWIN.slice(500));
 
 const MASK_DECAY_LOG = Math.log(0.995); // threshold decay factor between frames.
-//console.log(MASK_DECAY_LOG);
 
 // frequency window to generate landmark pairs, in units of DF = SAMPLING_RATE / NFFT. Values between 0 and NFFT/2
 const IF_MIN = 0; // you can increase this to avoid having fingerprints for low frequencies
@@ -82,10 +80,9 @@ for (let i=0; i<NFFT/2; i++) {
 		// see the visualization out-thr.png for better insight of what is happening
 	}
 }
-//console.log(EWW[255][254]);
 
 const VERBOSE = false;
-let DO_PLOT = false; // limit the amount of audio processing to ~12s, generate plots and stop the routine.
+const DO_PLOT = false; // limit the amount of audio processing to ~12s, generate plots and stop the routine.
 
 if (DO_PLOT) {
 	var fs = require('fs');
@@ -95,19 +92,6 @@ if (DO_PLOT) {
 class Codegen extends Transform {
 
 	constructor(options) {
-
-		/**
-		 * BEGIN TEMP
-		 */
-		///*
-		// super(options)
-		// this.buffer = new Buffer(0);
-		// return;
-		//*/
-		/**
-		 * END TEMP
-		 */
-
 		if (!options) options = {};
 		options.readableObjectMode = true;
 		options.highWaterMark = 10;
@@ -156,22 +140,17 @@ class Codegen extends Transform {
 
 			// fill the data, windowed (HWIN) and scaled
 			for (let i=0,limit = NFFT; i<limit; i++) {
-				//console.log((this.stepIndex + i) * BPS - this.bufferDelta);
 				data[i] = HWIN[i] * this.buffer.readInt16LE((this.stepIndex + i) * BPS - this.bufferDelta) / Math.pow(2, 8*BPS-1);
-				// console.log(`Data[${i}] ${data[i]}`);
-				// console.log((this.stepIndex + i) * BPS - this.bufferDelta, this.buffer.readInt16LE((this.stepIndex + i) * BPS - this.bufferDelta));
 			}
 			this.stepIndex += STEP;
 			//console.log("params stepIndex=" + this.stepIndex + " bufD=" + this.bufferDelta);
 
 			FFT.forward(data); 	// compute FFT
-			// console.log(`first spectrum ${FFT.spectrum[0]}`);
 
 			// log-normal surface
 			for (let i=IF_MIN; i<IF_MAX; i++) {
 				// the lower part of the spectrum is damped, the higher part is boosted, leading to a better peaks detection.
 				FFT.spectrum[i] = Math.abs(FFT.spectrum[i])*Math.sqrt(i+16);
-				// console.log(`spectrum[${i}] ${FFT.spectrum[i]}`);
 			}
 
 			if (DO_PLOT) this.fftData.push(FFT.spectrum.slice());
@@ -180,7 +159,6 @@ class Codegen extends Transform {
 			let diff = new Array(NFFT/2);
 			for (let i=IF_MIN; i<IF_MAX; i++) {
 				diff[i] = Math.max(	Math.log(Math.max(1e-6,FFT.spectrum[i])) - this.threshold[i] , 0);
-				// console.log(diff[i]);
 			}
 
 			// find at most MNLM local maxima in the spectrum at this timestamp.
@@ -207,7 +185,6 @@ class Codegen extends Transform {
 					}
 				}
 			}
-			// console.log(iLocMax, vLocMax);
 
 			// now that we have the MNLM highest local maxima of the spectrum,
 			// update the local maximum threshold so that only major peaks are taken into account.
@@ -222,15 +199,6 @@ class Codegen extends Transform {
 					break;
 				}
 			}
-			// if (iLocMax.length > 0 && vLocMax.length > 0) {
-			// 	console.log(iLocMax, vLocMax);
-			// }
-			// console.log(
-            //     iLocMax,
-            //     vLocMax,
-            //     this.threshold[0],
-            //     this.threshold[NFFT / 2 - 1]
-            // );
 
 			if (DO_PLOT) {
 				let tmp = new Array(NFFT/2);
@@ -267,21 +235,11 @@ class Codegen extends Transform {
 					}
 				}
 			}
-			// console.log(this.marks);
-			// this.marks.map(m => {
-			// 	if (m.i.length > 0 && m.v.length > 0) {
-			// 		console.log(m.i, m.v);
-			// 	}
-			// });
-			// console.log(this.marks.length);
-			// throw new Error('test');
 
 			// generate hashes for peaks that can no longer be pruned. stepIndex:{f1:f2:deltaindex}
 			let nFingersTotal = 0;
-			// console.log(this.marks.length);
 			if (t0 >= 0) {
 				let m = this.marks[t0];
-				// console.log(JSON.stringify(m));
 
 				loopCurrentPeaks:
 				for (let i=0; i < m.i.length; i++) {
@@ -295,7 +253,6 @@ class Codegen extends Transform {
 						loopPastPeaks:
 						for (let k=0; k<m2.i.length; k++) {
 							if (m2.i[k] != m.i[i] && Math.abs(m2.i[k] - m.i[i]) < WINDOW_DF) {
-								// console.log(`push t0 ${t0} i ${i} j ${j}`);
 								tcodes.push(m.t); //Math.round(this.stepIndex/STEP));
 								// in the hash: dt=(t0-j) has values between 0 and WINDOW_DT, so for <65 6 bits each
 								//				f1=m2.i[k] , f2=m.i[i] between 0 and NFFT/2-1, so for <255 8 bits each.
@@ -309,13 +266,10 @@ class Codegen extends Transform {
 					}
 				}
 			}
-			// console.log(nFingersTotal, tcodes, hcodes);
-
 			if (nFingersTotal > 0 && VERBOSE) {
 				log("t=" + Math.round(this.stepIndex/STEP) + " generated " + nFingersTotal + " fingerprints");
 			}
 			if (!DO_PLOT) {
-				//console.log(t0, WINDOW_DT, t0+1-WINDOW_DT);
 				this.marks.splice(0,t0+1-WINDOW_DT);
 			}
 
@@ -353,6 +307,25 @@ class Codegen extends Transform {
 	}
 
 	plot() { // plot section
+
+		if (false) { // raw signal plot
+			let buf = new Array(this.buffer.length / BPS);
+			for (let i=0; i<buf.length; i++) {
+				buf[i] = this.buffer.readInt16LE(i);
+			}
+			var img = new png({width:buf.length,height:64});
+			img.data = new Buffer(img.width * img.height * 4);
+			var norm = minmax(buf, 1);
+
+			for (var x = 0; x < img.width; x++) {
+				for (var y = 0; y < img.height; y++) {
+					colormap(0, img.data, (img.width * y + x) << 2, null);
+				}
+				var yPoint = Math.round(((buf[x]-norm[0]) / (norm[1]-norm[0])) * 64);
+				colormap(1, img.data, (img.width * yPoint + x) << 2, null);
+			}
+			img.pack().pipe(fs.createWriteStream('out-raw.png'));
+		}
 
 		// fft plot
 		console.log("fftData len=" + this.fftData.length);
