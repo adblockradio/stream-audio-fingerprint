@@ -1,5 +1,4 @@
 use async_std::task;
-use std::error::Error;
 use std::process::{Command, Stdio};
 
 /**
@@ -32,7 +31,7 @@ fn main() {
         .stdout(Stdio::piped())
         .spawn()
     {
-        Err(why) => panic!("couldn't spawn ffmpeg: {}", why.description()),
+        Err(why) => panic!("couldn't spawn ffmpeg: {}", why),
         Ok(process) => process,
     };
     let decoder_id = decoder.id();
@@ -45,7 +44,7 @@ fn main() {
         let mut buffer = Vec::new();
 
         match stream.read_to_end(&mut buffer) {
-            Err(why) => panic!("couldn't read decoder stdout: {}", why.description()),
+            Err(why) => panic!("couldn't read decoder stdout: {}", why),
             Ok(_) => {
                 let _output = String::from_utf8_lossy(&buffer);
                 //print!("decoder responded with:\n{:?}", _output);

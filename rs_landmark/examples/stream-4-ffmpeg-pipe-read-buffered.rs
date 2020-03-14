@@ -1,6 +1,5 @@
 use async_std::task;
 pub const DEFAULT_BUF_SIZE: usize = 8 * 1024; // from std::io
-use std::error::Error;
 use std::process::{Command, Stdio};
 
 /**
@@ -38,7 +37,7 @@ fn main() {
         .stdout(Stdio::piped())
         .spawn()
     {
-        Err(why) => panic!("couldn't spawn ffmpeg: {}", why.description()),
+        Err(why) => panic!("couldn't spawn ffmpeg: {}", why),
         Ok(process) => process,
     };
     let decoder_id = decoder.id();
@@ -61,7 +60,7 @@ fn main() {
                         break;
                     }
                 }
-                Err(why) => panic!("couldn't read decoder stdout: {}", why.description()),
+                Err(why) => panic!("couldn't read decoder stdout: {}", why),
             }
         }
     });

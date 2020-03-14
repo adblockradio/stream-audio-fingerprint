@@ -9,5 +9,7 @@ cache: cargo
 #     - rust: nightly
 #   fast_finish: true
 script:
-  - cargo build --verbose --all-targets
-  - cargo test --verbose --all
+  # - cargo build --verbose --all-targets
+  - cargo build --all-targets
+  # - cargo test --verbose --all
+  - cargo test --all

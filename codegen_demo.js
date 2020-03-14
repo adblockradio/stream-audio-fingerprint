@@ -30,7 +30,7 @@ decoder.stdout.on("end", function() {
 */
 decoder.stdout.on("data", function(data) {
 	// to compare outputs from ffmpeg
-	console.log(md5(data.toString()));
+	// console.log(md5(data.toString()));
 });
 /**
  * END TEMP
@@ -41,9 +41,9 @@ const fingerprinter = new Codegen();
 decoder.stdout.pipe(fingerprinter);
 
 fingerprinter.on("data", function(data) {
-	for (let i=0; i<data.tcodes.length; i++) {
-		console.log("time=" + data.tcodes[i] + " fingerprint=" + data.hcodes[i]);
-	}
+	// for (let i=0; i<data.tcodes.length; i++) {
+	// 	console.log("time=" + data.tcodes[i] + " fingerprint=" + data.hcodes[i]);
+	// }
 });
 
 fingerprinter.on("end", function() {

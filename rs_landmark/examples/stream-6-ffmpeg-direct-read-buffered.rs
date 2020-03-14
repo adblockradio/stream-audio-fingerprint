@@ -6,19 +6,16 @@ use futures::{
     FutureExt, // for `.fuse()`
 };
 pub const DEFAULT_BUF_SIZE: usize = 8 * 1024; // from std::io
-use std::error::Error;
 use std::process::{Command, Stdio};
 
 const INPUT_ARG: &str = "file";
 
 /**
- * Same as stream-4-ffmpeg-pipe-read,
+ * Same as stream-5-ffmpeg-direct-read,
  * but we read source file in multiple chunks
  * Probably slower than reading whole file at once,
  * but more efficient in making iso feature with 
  * nodejs streams
- * 
- * !! This seems particulary ineficient in terms of performance !!
  */
 
 //cargo run --example stream-6-ffmpeg-direct-read-buffered mp3_sample/sample.mp3
@@ -48,7 +45,7 @@ fn main() {
         .stdout(Stdio::piped())
         .spawn()
     {
-        Err(why) => panic!("couldn't spawn ffmpeg: {}", why.description()),
+        Err(why) => panic!("couldn't spawn ffmpeg: {}", why),
         Ok(process) => process,
     };
     let decoder_id = decoder.id();
@@ -116,7 +113,7 @@ fn main() {
                         break;
                     }
                 }
-                Err(why) => panic!("couldn't read decoder stdout: {}", why.description()),
+                Err(why) => panic!("couldn't read decoder stdout: {}", why),
             }
         }
     });
