@@ -58,3 +58,6 @@ typings/
 .env
 
 lib/*.js
+
+# macOS hidden file
+.DS_Store

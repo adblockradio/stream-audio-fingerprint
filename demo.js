@@ -35,5 +35,5 @@ fingerprinter.on('data', data => {
 });
 
 fingerprinter.on('end', () => {
-	console.log(`Fingerprints stream ended.`);
+	console.log('Fingerprints stream ended.');
 });
