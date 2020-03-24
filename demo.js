@@ -4,8 +4,10 @@
 
 // Copyright (c) 2018 Alexandre Storelli
 
-import childProcess from 'child_process';
-import { Codegen } from './lib/index';
+const childProcess = require('child_process');
+// const { Codegen } = require('stream-audio-fingerprint');
+// Swap the line above if you're running this outside of the repo
+const { Codegen } = require('./lib');
 
 const decoder = childProcess.spawn('ffmpeg', [
 	'-i', 'pipe:0',

@@ -5,7 +5,8 @@
 	"main": "lib/index.js",
 	"scripts": {
 		"prepare": "npm run build",
-		"build": "tsc",
+		"build": "tsc && npm run build:types",
+		"build:types": "tsc -d --declarationDir lib  --emitDeclarationOnly",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [
@@ -13,6 +14,9 @@
 		"fingerprint",
 		"stream"
 	],
+	"files": [
+		"lib/*js"
+	],	
 	"author": "Alexandre Storelli <a_npm@storelli.fr>",
 	"license": "MPL-2.0",
 	"dependencies": {
