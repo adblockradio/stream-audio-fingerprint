@@ -179,7 +179,7 @@ export class Codegen extends Transform {
 			highWaterMark: 10,
 			...options
 		});
-		this.buffer = new Buffer(0);
+		this.buffer = Buffer.alloc(0);
 		this.bufferDelta = 0;
 
 		this.stepIndex = 0;

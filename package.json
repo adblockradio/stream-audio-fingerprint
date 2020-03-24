@@ -5,8 +5,8 @@
 	"main": "lib/index.js",
 	"scripts": {
 		"prepare": "npm run build",
-		"build": "tsc && npm run build:types",
-		"build:types": "tsc -d --declarationDir lib  --emitDeclarationOnly",
+		"prebuild": "del ./lib/*.js",
+		"build": "tsc -d",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [
@@ -16,11 +16,12 @@
 	],
 	"files": [
 		"lib/*js"
-	],	
+	],
 	"author": "Alexandre Storelli <a_npm@storelli.fr>",
 	"license": "MPL-2.0",
 	"dependencies": {
 		"@types/node": "13.9.3",
+		"del-cli": "3.0.0",
 		"dsp.js": "git+https://git@github.com/corbanbrook/dsp.js.git",
 		"node-png": "^0.4.3",
 		"typescript": "3.8.3"
