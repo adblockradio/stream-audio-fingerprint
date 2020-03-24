@@ -18,11 +18,11 @@ In a nutshell,
 - significant peaks are chosen in this time-frequency map. a latency of 250ms is used to determine if a peak is not followed by a bigger peak.
 - fingerprints are computed by linking peaks with ```dt```, ```f1``` and ```f2```, ready to be inserted in a database or to be compared with other fingerprints.
 
-![Spectrogram, peaks and pairs](out-fft.png)
+![Spectrogram, peaks and pairs](.github/assets/out-fft.png)
 
 In the background, about 12s of musical content is represented as a spectrogram (top frequency is about 10kHz). The blue marks are the chosen spectrogram peaks. Grey lines are peaks pairs that each lead to a fingerprint.
 
-![Threshold and peaks](out-thr.png)
+![Threshold and peaks](.github/assets/out-thr.png)
 
 Given the same audio, this figure shows the same peaks and the internal *forward* threshold that prevent peaks from being too close in time and frequency. The *backward* threshold selection is not represented here.
 
