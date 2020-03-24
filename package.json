@@ -15,7 +15,8 @@
 		"stream"
 	],
 	"files": [
-		"lib/*js"
+		"lib/*.js",
+		"lib/*.d.ts"
 	],
 	"author": "Alexandre Storelli <a_npm@storelli.fr>",
 	"license": "MPL-2.0",
