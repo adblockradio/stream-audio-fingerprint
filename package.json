@@ -4,6 +4,8 @@
 	"description": "Audio landmark fingerprinting as a Node Stream module",
 	"main": "lib/index.js",
 	"scripts": {
+		"prepare": "npm run build",
+		"build": "tsc",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [
@@ -14,8 +16,10 @@
 	"author": "Alexandre Storelli <a_npm@storelli.fr>",
 	"license": "MPL-2.0",
 	"dependencies": {
+		"@types/node": "13.9.3",
 		"dsp.js": "git+https://git@github.com/corbanbrook/dsp.js.git",
-		"node-png": "^0.4.3"
+		"node-png": "^0.4.3",
+		"typescript": "3.8.3"
 	},
 	"bugs": {
 		"url": "https://github.com/dest4/stream-audio-fingerprint/issues"
