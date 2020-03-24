@@ -24,6 +24,7 @@
         "**/.node_repl_history": true,
         "**/*.tgz": true,
         "**/.yarn-integrity": true,
-        "**/.env": true
+        "**/.env": true,
+        "**/*.js": true
     }
 }
