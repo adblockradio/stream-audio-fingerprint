@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/killzoner/stream-audio-fingerprint.svg?branch=rust)](https://travis-ci.org/killzoner/stream-audio-fingerprint) 
+
 # Audio landmark fingerprinting as a Node Stream module
 
 This module is a duplex stream (instance of stream.Transform) that converts a PCM audio signal into a series of audio fingerprints. It works with audio tracks as well as with unlimited audio streams, e.g. broadcast radio.
@@ -63,7 +65,7 @@ and then we pipe audio data, either a stream or a file
 
 ```sh
 curl http://radiofg.impek.com/fg | nodejs codegen_demo.js
-cat awesome_music.mp3 | nodejs codegen_demo.js
+cat awesome_music.mp3 | node codegen_demo.js
 ```
 on Windows:
 ```
