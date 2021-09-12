@@ -14,7 +14,9 @@
 	"author": "Alexandre Storelli <a_npm@storelli.fr>",
 	"license": "MPL-2.0",
 	"dependencies": {
-		"dsp.js": "git+https://git@github.com/corbanbrook/dsp.js.git",
+		"dsp.js": "git+https://git@github.com/corbanbrook/dsp.js.git"
+	},
+	"devDependencies": {
 		"node-png": "^0.4.3"
 	},
 	"bugs": {
