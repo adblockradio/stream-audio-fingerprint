@@ -11,10 +11,11 @@ const { Codegen } = require('./lib');
 
 const decoder = childProcess.spawn('ffmpeg', [
 	'-i', 'pipe:0',
+	'-map', '0:a', // needed so that raw data is only one stream.
 	'-acodec', 'pcm_s16le',
 	'-ar', '22050',
 	'-ac', '1',
-	'-f', 'wav',
+	'-f', 'data', // get RAW data
 	'-v', 'fatal',
 	'pipe:1'
 ], { stdio: ['pipe', 'pipe', process.stderr] });
