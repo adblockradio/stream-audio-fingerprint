@@ -73,7 +73,7 @@ fingerprinter.on('end', () => {
 and then we pipe audio data, either a stream or a file
 
 ```shell
-curl http://radiofg.impek.com/fg | node demo.js
+curl -L http://radiofg.impek.com/fg | node demo.js
 cat awesome_music.mp3 | node demo.js
 ```
 on Windows:
