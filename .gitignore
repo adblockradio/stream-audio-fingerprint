@@ -57,3 +57,7 @@ typings/
 # dotenv environment variables file
 .env
 
+lib/*.js
+
+# macOS hidden file
+.DS_Store

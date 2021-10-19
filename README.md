@@ -18,56 +18,67 @@ In a nutshell,
 - significant peaks are chosen in this time-frequency map. a latency of 250ms is used to determine if a peak is not followed by a bigger peak.
 - fingerprints are computed by linking peaks with ```dt```, ```f1``` and ```f2```, ready to be inserted in a database or to be compared with other fingerprints.
 
-![Spectrogram, peaks and pairs](out-fft.png)
+![Spectrogram, peaks and pairs](.github/assets/out-fft.png)
 
 In the background, about 12s of musical content is represented as a spectrogram (top frequency is about 10kHz). The blue marks are the chosen spectrogram peaks. Grey lines are peaks pairs that each lead to a fingerprint.
 
-![Threshold and peaks](out-thr.png)
+![Threshold and peaks](.github/assets/out-thr.png)
 
 Given the same audio, this figure shows the same peaks and the internal *forward* threshold that prevent peaks from being too close in time and frequency. The *backward* threshold selection is not represented here.
 
 ## Usage
 
-```sh
+```shell
 npm install stream-audio-fingerprint
 ```
 
-The algorithm is in ```codegen_landmark.js```.
+The algorithm is in `lib/index.ts`.
 
-A demo usage is proposed in ```codegen_demo.js```. It requires the executable [ffmpeg](https://ffmpeg.org/download.html) to run.
+A demo usage is proposed in `demo.js`. It requires the executable [ffmpeg](https://ffmpeg.org/download.html) to run.
 
-```javascript
-var decoder = require('child_process').spawn('ffmpeg', [
+```js
+const childProcess = require('child_process');
+const { Codegen } = require('stream-audio-fingerprint');
+
+const decoder = childProcess.spawn('ffmpeg', [
 	'-i', 'pipe:0',
 	'-acodec', 'pcm_s16le',
-	'-ar', 22050,
-	'-ac', 1,
+	'-ar', '22050',
+	'-ac', '1',
 	'-f', 'wav',
 	'-v', 'fatal',
 	'pipe:1'
 ], { stdio: ['pipe', 'pipe', process.stderr] });
-process.stdin.pipe(decoder.stdin);
 
-var Codegen = require("stream-audio-fingerprint");
-var fingerprinter = new Codegen();
+const fingerprinter = new Codegen();
+
+// Pipe ouput of ffmpeg decoder to fingerprinter
 decoder.stdout.pipe(fingerprinter);
 
-fingerprinter.on("data", function(data) {
-	for (var i=0; i<data.tcodes.length; i++) {
-		console.log("time=" + data.tcodes[i] + " fingerprint=" + data.hcodes[i]);
+// Pipe input to this file to ffmpeg decoder
+process.stdin.pipe(decoder.stdin);
+
+// Log all the found fingerprints as they come in
+fingerprinter.on('data', data => {
+	for (let i = 0; i < data.tcodes.length; i++) {
+		console.log(`time=${data.tcodes[i]} fingerprint=${data.hcodes[i]}`);
 	}
+});
+
+fingerprinter.on('end', () => {
+	console.log('Fingerprints stream ended.');
 });
 ```
 
 and then we pipe audio data, either a stream or a file
 
-```sh
-curl http://radiofg.impek.com/fg | nodejs codegen_demo.js
-cat awesome_music.mp3 | nodejs codegen_demo.js
+```shell
+curl http://radiofg.impek.com/fg | node demo.js
+cat awesome_music.mp3 | node demo.js
 ```
 on Windows:
 ```
-type awesome_music.mp3 | node codegen_demo.js
+type awesome_music.mp3 | node demo.js
 ```
 
 ## Integration in your project
