@@ -1,9 +1,3 @@
-// This Source Code Form is subject to the terms of the Mozilla Public
-// License, v. 2.0. If a copy of the MPL was not distributed with this
-// file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
-// Copyright (c) 2021 Alexis Tyler
-
 /// <reference types="node" />
 import { Transform } from 'stream';
 interface Options {
@@ -20,15 +14,14 @@ export declare class Codegen extends Transform {
     bufferDelta: number;
     stepIndex: number;
     marks: Mark[];
-    threshold: any[];
-    fftData?: any[];
-    thrData?: any[];
-    peakData?: any[];
+    threshold: number[];
+    fftData?: number[][];
+    thrData?: number[][];
+    peakData?: number[][];
     DT: number;
     SAMPLING_RATE: number;
     BPS: number;
     constructor(options?: Partial<Options>);
-    _write(chunk: Buffer, _: any, next: Function): void;
-    plot(): void;
+    _write(chunk: Buffer, _: string, next: () => void): void;
 }
 export {};

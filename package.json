@@ -7,7 +7,8 @@
 		"prepare": "npm run build",
 		"prebuild": "del ./lib/*.js",
 		"build": "tsc -d",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"lint": "npx eslint ."
 	},
 	"keywords": [
 		"audio",
@@ -24,10 +25,14 @@
 		"dsp.js": "git+https://git@github.com/corbanbrook/dsp.js.git"
 	},
 	"devDependencies": {
-		"del-cli": "^3.0.0",
 		"@types/node": "13.9.3",
-		"typescript": "3.8.3",
-		"node-png": "^0.4.3"
+		"@typescript-eslint/eslint-plugin": "^5.3.0",
+		"@typescript-eslint/parser": "^5.3.0",
+		"del-cli": "^3.0.0",
+		"eslint": "^8.1.0",
+		"eslint-plugin-node": "^11.1.0",
+		"node-png": "^0.4.3",
+		"typescript": "^3.8.3"
 	},
 	"bugs": {
 		"url": "https://github.com/adblockradio/stream-audio-fingerprint/issues"
