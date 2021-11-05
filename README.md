@@ -73,7 +73,7 @@ fingerprinter.on('end', () => {
 and then we pipe audio data, either a stream or a file
 
 ```shell
-curl http://radiofg.impek.com/fg | node demo.js
+curl -L http://radiofg.impek.com/fg | node demo.js
 cat awesome_music.mp3 | node demo.js
 ```
 on Windows:
@@ -81,11 +81,19 @@ on Windows:
 type awesome_music.mp3 | node demo.js
 ```
 
+## Development
+
+Built in Typescript.
+
+`npm run build` to build, `npm run lint` to test formatting.
+
+To generate graphs, set `DO_PLOT` to `true` in `lib/index.ts`. Pipe some audio. Graphs will be generated a few seconds later.
+
 ## Integration in your project
 
 Matching fingerprints in a database is not a trivial topic, I should write a technical note about it some day.
 
-For a reference implementation you can have a look at the code of the Adblock Radio algorithm to catch ads https://github.com/adblockradio/adblockradio/blob/master/predictor-db/hotlist.js#L150.
+For a reference implementation you can have a look at the code of the Adblock Radio algorithm to catch ads https://github.com/adblockradio/adblockradio/blob/master/predictor-db/hotlist.js#L133.
 
 ## License
 

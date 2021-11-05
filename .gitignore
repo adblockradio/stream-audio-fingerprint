@@ -61,3 +61,7 @@ lib/*.js
 
 # macOS hidden file
 .DS_Store
+
+# output graphs
+out-fft.png
+out-thr.png
