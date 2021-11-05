@@ -81,6 +81,14 @@ on Windows:
 type awesome_music.mp3 | node demo.js
 ```
 
+## Development
+
+Built in Typescript.
+
+`npm run build` to build, `npm run lint` to test formatting.
+
+To generate graphs, set `DO_PLOT` to `true` in `lib/index.ts`. Pipe some audio. Graphs will be generated a few seconds later.
+
 ## Integration in your project
 
 Matching fingerprints in a database is not a trivial topic, I should write a technical note about it some day.
