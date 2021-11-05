@@ -2,7 +2,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-// Copyright (c) 2018 Alexandre Storelli
+// Copyright (c) 2021 Alexandre Storelli and contributors
 
 // Online implementation of the landmark audio fingerprinting algorithm.
 // inspired by D. Ellis (2009), "Robust Landmark-Based Audio Fingerprinting"
