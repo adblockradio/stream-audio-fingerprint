@@ -30,7 +30,7 @@
 		"node-png": "^0.4.3"
 	},
 	"bugs": {
-		"url": "https://github.com/dest4/stream-audio-fingerprint/issues"
+		"url": "https://github.com/adblockradio/stream-audio-fingerprint/issues"
 	},
-	"homepage": "https://github.com/dest4/stream-audio-fingerprint"
+	"homepage": "https://github.com/adblockradio/stream-audio-fingerprint"
 }
