@@ -85,7 +85,7 @@ type awesome_music.mp3 | node demo.js
 
 Matching fingerprints in a database is not a trivial topic, I should write a technical note about it some day.
 
-For a reference implementation you can have a look at the code of the Adblock Radio algorithm to catch ads https://github.com/adblockradio/adblockradio/blob/master/predictor-db/hotlist.js#L150.
+For a reference implementation you can have a look at the code of the Adblock Radio algorithm to catch ads https://github.com/adblockradio/adblockradio/blob/master/predictor-db/hotlist.js#L133.
 
 ## License
 
